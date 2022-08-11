@@ -70,13 +70,13 @@ class LinkedList {
       count++;
       temp = temp -> getNext();
     }
-    cout << "     " << count << endl;
+    cout << "       " << count << endl;
   }
   void DisplayAllElements() {
     Node * temp;
     temp = head;
     while (temp != NULL) {
-      cout << "      " << temp -> getData();
+      cout << "       " << temp -> getData();
       temp = temp -> getNext();
     }
   }
@@ -136,7 +136,15 @@ int main() {
   L1.insertAtBeginning(4);
   L1.insertAtLast(5);
   L1.DisplayAllElements();
-  cout << endl << endl;
+  cout << "\n  Total Length->";
   L1.TotalElements();
+  cout << "  List after removing first element" << endl;
+  L1.removeFromBeginning();
+  L1.DisplayAllElements();
+  cout << "\n  List after removed last element" << endl;
+  L1.removeFromLast();
+  L1.DisplayAllElements();
+
   return 0;
+
 }
