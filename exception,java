@@ -1,0 +1,34 @@
+EXCEPTION ASSIGNMENT 
+
+class MySpecialNumberException extends Exception {
+    public MySpecialNumberException(String message) {
+        super(message);
+    }
+}
+
+public class Main {
+    public static void myfunc(int x) throws MySpecialNumberException {
+        if (x == 10) {
+            throw new MySpecialNumberException("Input value is 10");
+        } else if (x == 20) {
+            throw new MySpecialNumberException("Input value is 20");
+        } else if (x == 30) {
+            throw new MySpecialNumberException("Input value is 30");
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] inputs = { 10, 15, 20, 25, 30 };
+
+        for (int x : inputs) {
+            try {
+                myfunc(x);
+                System.out.println("myfunc(" + x + ") executed successfully.");
+            } catch (MySpecialNumberException e) {
+                System.out.println("Caught MySpecialNumberException: " + e.getMessage());
+            } finally {
+                System.out.println("Finally block executed.");
+            }
+        }
+    }
+}
