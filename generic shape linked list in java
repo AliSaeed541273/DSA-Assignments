@@ -1,0 +1,158 @@
+A02: Generic Shape Collection 
+
+
+import java.util.Date;
+
+abstract class Shape {
+    private static int nextAutoID = 1;
+
+    private int shapeID;
+    private Date creationTimestamp;
+
+    public Shape() {
+        shapeID = nextAutoID++;
+        creationTimestamp = new Date();
+    }
+
+    public int getShapeID() {
+        return shapeID;
+    }
+
+    public Date getCreationTimestamp() {
+        return creationTimestamp;
+    }
+
+    public abstract void draw();
+
+    @Override
+    public String toString() {
+        return "Shape{" +
+                "shapeID=" + shapeID +
+                ", creationTimestamp=" + creationTimestamp +
+                '}';
+    }
+}
+
+class Rectangle extends Shape {
+    private double length;
+    private double width;
+
+    public Rectangle(double length, double width) {
+        this.length = length;
+        this.width = width;
+    }
+
+    @Override
+    public void draw() {
+        System.out.println("Drawing Rectangle with length=" + length + " and width=" + width);
+    }
+
+    @Override
+    public String toString() {
+        return "Rectangle{" +
+                "shapeID=" + getShapeID() +
+                ", creationTimestamp=" + getCreationTimestamp() +
+                ", length=" + length +
+                ", width=" + width +
+                '}';
+    }
+}
+
+class Square extends Shape {
+    private double side;
+
+    public Square(double side) {
+        this.side = side;
+    }
+
+    @Override
+    public void draw() {
+        System.out.println("Drawing Square with side=" + side);
+    }
+
+    @Override
+    public String toString() {
+        return "Square{" +
+                "shapeID=" + getShapeID() +
+                ", creationTimestamp=" + getCreationTimestamp() +
+                ", side=" + side +
+                '}';
+    }
+}
+
+class Triangle extends Shape {
+    private double base;
+    private double height;
+
+    public Triangle(double base, double height) {
+        this.base = base;
+        this.height = height;
+    }
+
+    @Override
+    public void draw() {
+        System.out.println("Drawing Triangle with base=" + base + " and height=" + height);
+    }
+
+    @Override
+    public String toString() {
+        return "Triangle{" +
+                "shapeID=" + getShapeID() +
+                ", creationTimestamp=" + getCreationTimestamp() +
+                ", base=" + base +
+                ", height=" + height +
+                '}';
+    }
+}
+
+class ShapeLinkedList {
+    private static class Node {
+        Shape shape;
+        Node next;
+
+        Node(Shape shape) {
+            this.shape = shape;
+            this.next = null;
+        }
+    }
+
+    private Node head;
+
+    public void addShape(Shape shape) {
+        Node newNode = new Node(shape);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+    }
+
+    public void displayShapes() {
+        Node current = head;
+        while (current != null) {
+            current.shape.draw();
+            current = current.next;
+        }
+    }
+
+    public static void main(String[] args) {
+        ShapeLinkedList shapeList = new ShapeLinkedList();
+
+        for (int i = 0; i < 100; i++) {
+            double rand = Math.random();
+            if (rand < 0.33) {
+                shapeList.addShape(new Rectangle(rand * 10, rand * 20));
+            } else if (rand < 0.67) {
+                shapeList.addShape(new Square(rand * 15));
+            } else {
+                shapeList.addShape(new Triangle(rand * 10, rand * 10));
+            }
+        }
+
+        shapeList.displayShapes();
+    }
+}
